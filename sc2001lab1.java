@@ -1,4 +1,4 @@
-package Code;
+package school_work;
 
 import java.util.Scanner;
 import java.io.File;
@@ -59,7 +59,7 @@ public class sc2001lab1 {
 				S = threshold[j];
 				int[] slot = new int[N];
 
-				File file = new File("Code/" + N + ".txt");
+				File file = new File("school_work/input/" + N + ".txt");
 
 				try{
 					Scanner sc = new Scanner(file);
@@ -89,7 +89,7 @@ public class sc2001lab1 {
 				System.out.println("N = " + N + " S = " + S + " count = " + (count-1) + " Time taken: " + (end - start) + " ms");
 
 				try{
-					String f = "Code/sorted_" + "N" + N + "_S" + S + ".txt";
+					String f = "school_work/output/sorted_" + "N" + N + "_S" + S + ".txt";
 
 					PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(f)));
 
