@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
 import java.lang.System;
+import java.util.Random;
+import java.util.Collections;
+import java.util.Arrays;
 
 public class mixsort {
 	
@@ -16,20 +19,34 @@ public class mixsort {
 	public static int N;
 
 	public static void main(String[] args) {
-				
+		boolean saveResults = true;
 
-		int[] sizes		= {1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000, 10000000}; 
-		int[] threshold = {5,10,50,100,500};
+		int[] sizes		= {10000000}; //1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000, 
+		int[] threshold = {1,100,200,300,400,500,600,700,800,900,1000};
+
+
+		// add header to result file
+		try{
+			String f = "01/output/results.txt";
+			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(f, true)));
+			out.println("N,S,count,time taken(ms)");
+			out.close();
+		}
+		catch(IOException err){
+			System.out.println("File Not Found");
+		}
 
 		for(int n=0; n<sizes.length; n++){
 			N = sizes[n];
-			for(int m=0; m<threshold.length; m++){
+			// for(int m=0; m<threshold.length; m++){
+			for(int m=40; m<=60; m+=1){
 				count = 0;
-				S = threshold[m];
+				// S = threshold[m];
+				S = m;
 
 				//Reading input file into an array
 				int[] slot = new int[N];
-				File file = new File("input/" + N + ".txt");
+				File file = new File("01/input/" + N + ".txt");
 				try{
 					Scanner sc = new Scanner(file);
 					sc.useDelimiter(",");
@@ -65,20 +82,28 @@ public class mixsort {
 
 				//print results
 				System.out.println("N = " + N + " S = " + S + " count = " + (count-1) + " Time taken: " + (end - start) + " ms");
-				
-				//save sorted array into output file
-				try{
-					String f = "output/sorted_" + "N" + N + "_S" + S + ".txt";
-					PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(f)));
-					for(int k=0; k<N; k++){
-						out.write(slot[k]+",");
-						
+
+				if(saveResults){
+					try{
+						String f = "01/output/sorted_" + "N" + N + "_S" + S + ".txt";
+						PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(f)));
+						for(int k=0; k<N; k++){
+							out.write(slot[k]+",");
+							
+						}
+						out.close();
+
+						f = "01/output/results.txt";
+						out = new PrintWriter(new BufferedWriter(new FileWriter(f, true)));
+						out.println(N+","+S+","+count+","+(end - start));
+						out.close();
 					}
-					out.close();
+					catch(IOException err){
+						System.out.println("File Not Found");
+					}
 				}
-				catch(IOException err){
-					System.out.println("File Not Found");
-				}
+				//save sorted array into output file
+
 			}
 		}
 	}
@@ -155,6 +180,16 @@ public class mixsort {
 		
 	}
 	
+	public static int[] generateArr(int N,int seed){
+		int arr[] = new int[N];
+		Random r = new Random(seed);
+
+		for(int i=0; i<N; i++){
+			arr[i] = 1 + r.nextInt(N);
+		}
+
+		return arr;
+	}
 }
 		
 		
