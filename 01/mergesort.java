@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class mergesort{
 
-	public static int S = 50;
+	public static int S = 52;
 	public static int N = 10000000;
     public static long count = 0;
 
@@ -120,12 +120,26 @@ public class mergesort{
 		double[] time_hybrid = new double[10];
 		double[] time_merge = new double[10];
 
+		int[] slot = new int[N];
+		File file = new File("01/input/" + N + ".txt");
+		try{
+			Scanner sc = new Scanner(file);
+			sc.useDelimiter(",");
+			for(int k=0; k<N; k++){
+				slot[k] = sc.nextInt(); 
+			}
+			sc.close();
+		}
+		catch(FileNotFoundException ff){
+			System.out.println("File Not Found");
+		}
+
 		for(int i=0; i<10; i++){
-			int[] slot = generateArr(N, i);
-			int[] slot_copy = Arrays.copyOf(slot, N);
+			int[] slot_copy1 = Arrays.copyOf(slot, N);
+			int[] slot_copy2 = Arrays.copyOf(slot, N);
 
 			start = System.currentTimeMillis();
-			msort(0, slot.length-1, slot);
+			msort(0, slot_copy1.length-1, slot_copy1);
 			end = System.currentTimeMillis();
 			avg_merge += (end-start);
 			count_merge += count;
@@ -133,7 +147,7 @@ public class mergesort{
 			count = 0;
 	
 			start = System.currentTimeMillis();
-			mixsort(0, slot_copy.length-1, slot_copy);
+			mixsort(0, slot_copy2.length-1, slot_copy2);
 			end = System.currentTimeMillis();
 			avg_hybrid += (end-start);
 			count_hybrid += count;

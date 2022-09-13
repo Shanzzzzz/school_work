@@ -19,30 +19,33 @@ public class mixsort {
 	public static int N;
 
 	public static void main(String[] args) {
-		boolean saveResults = true;
+		boolean saveResults = false;
 
-		int[] sizes		= {10000000}; //1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000, 
-		int[] threshold = {1,100,200,300,400,500,600,700,800,900,1000};
+		int[] sizes		= {10000000}; // 1000,5000,10000,50000,100000,500000,1000000,5000000,
+		int[] threshold = {10,20,30,40,50,60,70,80,90,100};
+		// int[] threshold = {1,2,4,8,16,32,64,128,256,512,1024};
 
 
 		// add header to result file
-		try{
-			String f = "01/output/results.txt";
-			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(f, true)));
-			out.println("N,S,count,time taken(ms)");
-			out.close();
-		}
-		catch(IOException err){
-			System.out.println("File Not Found");
+		if(saveResults){
+			try{
+				String f = "01/output/results.txt";
+				PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(f, true)));
+				out.println("N,S,count,time taken(ms)");
+				out.close();
+			}
+			catch(IOException err){
+				System.out.println("File Not Found");
+			}
 		}
 
 		for(int n=0; n<sizes.length; n++){
 			N = sizes[n];
-			// for(int m=0; m<threshold.length; m++){
-			for(int m=40; m<=60; m+=1){
+			for(int m=0; m<threshold.length; m++){
+			// for(int m=40; m<=60; m+=1){
 				count = 0;
-				// S = threshold[m];
-				S = m;
+				S = threshold[m];
+				// S = m;
 
 				//Reading input file into an array
 				int[] slot = new int[N];
@@ -64,9 +67,12 @@ public class mixsort {
 				// }
 
 				//sort the array and record time
-				long start = System.currentTimeMillis();
+				
+				long start = System.nanoTime();
+				// long start = System.currentTimeMillis();
 				mixsort(0,N-1,slot);
-				long end = System.currentTimeMillis();
+				long end = System.nanoTime();
+				// long end = System.currentTimeMillis();
 
 				// for(int q=0; q<N; q++){
 				// 	System.out.print(slot[q] + " ");
@@ -81,7 +87,7 @@ public class mixsort {
 				}
 
 				//print results
-				System.out.println("N = " + N + " S = " + S + " count = " + (count-1) + " Time taken: " + (end - start) + " ms");
+				System.out.println("N = " + N + " S = " + S + " count = " + (count) + " Time taken: " + (end - start)/Math.pow(10,6) + " ms");
 
 				if(saveResults){
 					try{
@@ -95,7 +101,7 @@ public class mixsort {
 
 						f = "01/output/results.txt";
 						out = new PrintWriter(new BufferedWriter(new FileWriter(f, true)));
-						out.println(N+","+S+","+count+","+(end - start));
+						out.println(N+","+S+","+count+","+(end - start)/Math.pow(10,6) );
 						out.close();
 					}
 					catch(IOException err){
@@ -126,7 +132,6 @@ public class mixsort {
 		if((m-n) <= 0){
 			return;
 		}
-
 
 		for (int i=n+1; i < m+1; i++){ 	
 			for (int j=i; j > n; j--) {
