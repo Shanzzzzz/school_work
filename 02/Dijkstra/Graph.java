@@ -8,9 +8,9 @@ import java.util.Scanner;
 public class Graph {
     
     int i, j, size, e=0;
-    int maxWeight = 20;
+    int maxWeight = 100;
     // private int type;
-    private int maxEdge;
+    // private int maxEdge;
 
     int[][] adj_matrix;
     ArrayList<ArrayList<Node>> adj_list = new ArrayList<>();
@@ -51,26 +51,26 @@ public class Graph {
         }
     }
 
-    public Graph(int V, String arg){
-        size = V;
-        adj_matrix = new int[V][V];
-        readFile(adj_matrix, V);
-    }
+    // public Graph(int V, String arg){
+    //     size = V;
+    //     adj_matrix = new int[V][V];
+    //     readFile(adj_matrix, V);
+    // }
 
-    public Graph(int V, int type){
+    public Graph(int V, int E, int type){
         // adjacency list implementation
         size = V;
-        maxEdge = V*(V-1);
+
         if(type == 0){
             for (int i = 0; i < V; i++) {
                 adj_list.add(new ArrayList<>());
             }
 
             //fixed number of edges
-            //int E = V-1;
+            // int E = V-1;
             
             //random number of edges
-            int E = (int)(Math.random()*maxEdge)+1;
+            // int E = (int)(Math.random()*maxEdge)+1;
     
             //generate E random edges
             while(e<E){
@@ -83,13 +83,11 @@ public class Graph {
                 }
             }
         }
-
-
         // adjacency matrix implementation
         else if(type == 1){
             int i, j, e=0;
             int maxWeight = 20;
-            int maxEdge = V*(V-1);
+            // int maxEdge = V*(V-1);
         
             adj_matrix = new int[V][V];
 
@@ -97,7 +95,7 @@ public class Graph {
             //int E = V-1;
         
             //random number of edges
-            int E = (int)(Math.random()*maxEdge)+1;
+            // int E = (int)(Math.random()*maxEdge)+1;
             
             //initialize the matrix
             for(i=0; i<V; i++) {
@@ -119,7 +117,34 @@ public class Graph {
         }
     }
 
-    public void print(){
+    public int getWeight(int s, int e, int type){
+        int w = Integer.MAX_VALUE;
 
+        if(type == 0){
+            for(Node n : adj_list.get(s)){
+                if(n.getID() == e){
+                    w = n.getWeight();
+                }
+            }
+        }
+        else if (type == 1){
+            w = adj_matrix[s][e];
+        }
+
+        return w;
+    }
+
+    public void print(int type){
+        ArrayList<Node> arr;
+        if(type == 0){
+            for(int i=0; i<adj_list.size(); i++){
+                System.out.print(i + " : ");
+                arr = adj_list.get(i);
+                for(int j=0; j<arr.size(); j++){
+                    System.out.print(arr.get(j).getID() + "(" + arr.get(j).getWeight() + ") ");
+                }
+                System.out.println();
+            }
+        }
     }
 }

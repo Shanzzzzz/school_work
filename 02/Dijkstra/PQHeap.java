@@ -22,10 +22,10 @@ public class PQHeap {
     // Finds the index of the smaller child of the Node at N [Return -1 if the Node is a leaf]
     public int smallerChildIndex(int N){
         int res;
-        if(queue[N*2] == null){
+        if(N*2 <= size && queue[N*2] == null){
             res = -1;
         }
-        else if(queue[N*2].getWeight() > queue[N*2 + 1].getWeight()){
+        else if(N*2 + 1 <= size && queue[N*2].getWeight() > queue[N*2 + 1].getWeight()){
             res = N*2 + 1;
         }
         else{
@@ -54,7 +54,7 @@ public class PQHeap {
             return;
         }
         // Swap Node at N with the smallest child until it is smaller then both child
-        while(idx != -1 && N < size && node.getWeight() > queue[idx].getWeight()){
+        while(idx != -1 && idx <= size && node.getWeight() > queue[idx].getWeight()){
             swap(N, idx);
             N = idx;
             idx = smallerChildIndex(N);
@@ -62,8 +62,8 @@ public class PQHeap {
     }
 
     // Insert a new Node into the queue
-    public int insert(int id, int key){
-        Node node = new Node(id, key);
+    public int insert(int id, int weight){
+        Node node = new Node(id, weight);
 
         if(size == capacity){
             return size;
