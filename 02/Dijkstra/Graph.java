@@ -1,6 +1,9 @@
 package Dijkstra;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Graph {
     
@@ -23,6 +26,35 @@ public class Graph {
         }
 
         return flag;
+    }
+
+    public void readFile(int[][] adj_matrix, int V){
+        int E=20;
+        int s,d,w;
+        File file = new File("Dijkstra/test_cases/1.in");
+
+        try{
+            Scanner sc = new Scanner(file);
+            // sc.useDelimiter(",");
+            sc.nextInt();
+            for(int i=0; i<E; i++){
+                s = sc.nextInt();
+                d = sc.nextInt();
+                w = sc.nextInt();
+
+                adj_matrix[s][d] = w; 
+            }
+            sc.close();
+        }
+        catch(FileNotFoundException ff){
+            System.out.println("File Not Found");
+        }
+    }
+
+    public Graph(int V, String arg){
+        size = V;
+        adj_matrix = new int[V][V];
+        readFile(adj_matrix, V);
     }
 
     public Graph(int V, int type){

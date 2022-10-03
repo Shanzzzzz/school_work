@@ -1,11 +1,6 @@
 package Dijkstra;
 
 public class Dijkstra {
-	public void main(String[] args) {
-
-	}
-
-
 	public int dijkstra_a(Graph G, int source, int destination, int V) {
 		int i;
 		Node min;
@@ -22,7 +17,7 @@ public class Dijkstra {
 		
 		d[source] = 0;
 		
-        PQArray Q = new PQArray(V-1);
+        PQArray Q = new PQArray(V);
 		
 		for(i=0; i<d.length; i++) {
 			Q.insert(i, d[i]);
