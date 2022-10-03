@@ -6,7 +6,7 @@ public class PQHeapDriver {
         System.out.println(pq.insert(1, 10));
         pq.insert(2, 5);
         pq.insert(3, 1);
-        pq.updateKey(1, 0);
+        pq.updateWeight(1, 0);
         pq.print();
     }
 }

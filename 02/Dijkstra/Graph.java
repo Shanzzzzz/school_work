@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Graph {
     
-    int i, j, e=0;
+    int i, j, size, e=0;
     int maxWeight = 20;
     // private int type;
     private int maxEdge;
@@ -27,6 +27,7 @@ public class Graph {
 
     public Graph(int V, int type){
         // adjacency list implementation
+        size = V;
         maxEdge = V*(V-1);
         if(type == 0){
             for (int i = 0; i < V; i++) {
@@ -58,6 +59,8 @@ public class Graph {
             int maxWeight = 20;
             int maxEdge = V*(V-1);
         
+            adj_matrix = new int[V][V];
+
             //fixed number of edges
             //int E = V-1;
         
@@ -82,5 +85,9 @@ public class Graph {
             }
         
         }
+    }
+
+    public void print(){
+
     }
 }
