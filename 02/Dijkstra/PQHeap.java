@@ -4,10 +4,12 @@ public class PQHeap {
     private Node[] queue;
     private int capacity;
     private int size;
+    private int[] pos; //stores the position of the nodes in the min heap
 
     // Initialize the instance variables
     public PQHeap(int capacity){
         queue = new Node[capacity+1];
+        pos = new int[capacity+1];
         this.capacity = capacity;
         size = 0;
     }
@@ -15,6 +17,10 @@ public class PQHeap {
     // Swap the two Node at position first and second
     public void swap(int first, int second){
         Node temp = queue[first];
+
+        pos[queue[first].getID()] = second;
+        pos[queue[second].getID()] = first;
+
         queue[first] = queue[second];
         queue[second] = temp;
     }
@@ -70,6 +76,7 @@ public class PQHeap {
         }
 
         queue[++size] = node;
+        pos[id] = size;
         siftUp(size);
         return size;
     }
@@ -80,14 +87,9 @@ public class PQHeap {
 
     // Updates the weight of the Node based on id and fix the heap
     public void updateWeight(int id, int newWeight){
-        for(int i=1; i<=size; i++){
-            if(queue[i].getID() == id){
-                queue[i].setWeight(newWeight);
-                siftUp(i);
-                siftDown(i);
-                break;
-            }
-        }
+        queue[pos[id]].setWeight(newWeight);
+        siftUp(pos[id]);
+        siftDown(pos[id]);
     }
 
     // Return the root node in the heap

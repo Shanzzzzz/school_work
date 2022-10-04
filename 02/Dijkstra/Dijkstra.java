@@ -75,11 +75,9 @@ public class Dijkstra {
 				n = neighbours.get(i);
 				neighbour_id = n.getID();
 				if(S[neighbour_id]!=1 && d[neighbour_id] > d[min.getID()] + G.getWeight(min.getID(), neighbour_id, 0)) {
-					// delete(Q,i);
 					d[neighbour_id] = d[min.getID()] + G.getWeight(min.getID(), neighbour_id, 0);
 					pi[neighbour_id] = min.getID();
                     Q.updateWeight(neighbour_id, d[i]);
-					// insert(Q,i,d[i]);
 				}
 			}
 		}

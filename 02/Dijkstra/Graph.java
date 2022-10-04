@@ -60,7 +60,6 @@ public class Graph {
     public Graph(int V, int E, int type){
         // adjacency list implementation
         size = V;
-
         if(type == 0){
             for (int i = 0; i < V; i++) {
                 adj_list.add(new ArrayList<>());
@@ -86,7 +85,6 @@ public class Graph {
         // adjacency matrix implementation
         else if(type == 1){
             int i, j, e=0;
-            int maxWeight = 20;
             // int maxEdge = V*(V-1);
         
             adj_matrix = new int[V][V];
