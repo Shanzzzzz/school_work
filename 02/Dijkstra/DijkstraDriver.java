@@ -5,8 +5,8 @@ public class DijkstraDriver {
         long time = 0;
         Dijkstra D = new Dijkstra();
 
-        int V = 10;
-        int E = V;
+        int V = 1000;
+        int E = (V-1)*V;
 		// int E = V-1;
         
         // for(int i=0; i<10; i++){
