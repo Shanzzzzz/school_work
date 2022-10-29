@@ -44,7 +44,7 @@ public class Dijkstra {
 	}
 
     public int[] dijkstra_b(Graph G, int source, int V){
-		int i,neighbour_id;
+		int i,neighbour_id,neighbour_weight;
 		Node min,n;
 
 		int d[] = new int[V];
@@ -74,8 +74,8 @@ public class Dijkstra {
 			for(i=0; i<neighbours.size(); i++){	// for every node adjacent to min node
 				n = neighbours.get(i);
 				neighbour_id = n.getID();
-				if(S[neighbour_id]!=1 && d[neighbour_id] > d[min.getID()] + G.getWeight(min.getID(), neighbour_id, 0)) {
-					d[neighbour_id] = d[min.getID()] + G.getWeight(min.getID(), neighbour_id, 0);
+				if(S[neighbour_id]!=1 && d[neighbour_id] > d[min.getID()] + n.getWeight()) {
+					d[neighbour_id] = d[min.getID()] + n.getWeight();
 					pi[neighbour_id] = min.getID();
                     Q.updateWeight(neighbour_id, d[i]);
 				}

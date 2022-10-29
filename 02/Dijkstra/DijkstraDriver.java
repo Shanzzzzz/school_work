@@ -10,7 +10,7 @@ public class DijkstraDriver {
 		// int E = V-1;
         int c = 0;
         // long start = System.nanoTime();
-        for(int i=1000; i<=V*(V-1); i+=5000){
+        for(int i=V; i<=V*(V-1); i+=5000){
             c++;
             // V = i;
             E = i ;
